@@ -45,8 +45,8 @@ var TodoItem = function () {
 	_createClass(TodoItem, [{
 		key: 'toggleDone',
 		value: function toggleDone() {
-			console.log(this);
 			this.done = !this.done;
+			console.log(this);
 			// if(this.done){
 			// 	this.done = true;
 			// } else{
@@ -57,8 +57,9 @@ var TodoItem = function () {
 	}, {
 		key: 'updateView',
 		value: function updateView() {
-			if (this.$element.done === true) {
+			if (this.done === true) {
 				this.$element.classList.add('done');
+				this.$button.innerHTML = "Undo";
 			} else {
 				this.$element.classList.remove('done');
 			}

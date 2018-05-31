@@ -38,8 +38,8 @@ class TodoItem {
 	}
 
 	toggleDone(){
-		console.log(this);
 		this.done = !this.done;
+		console.log(this);
 		// if(this.done){
 		// 	this.done = true;
 		// } else{
@@ -49,8 +49,9 @@ class TodoItem {
 	}
 
 	updateView(){
-		if(this.$element.done === true){
+		if(this.done === true){
 			this.$element.classList.add('done');
+			this.$button.innerHTML = "Undo";
 		} else{
 			this.$element.classList.remove('done');
 		}
