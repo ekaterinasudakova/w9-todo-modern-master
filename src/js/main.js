@@ -23,8 +23,24 @@ class TodoItem {
 		this.text = text;
 		this.done = false;
 
+		this.$element = document.createElement('li');
+		this.$textEl = document.createElement('p');
+		this.$textEl.innerHTML = this.text;
+		this.$button = document.createElement('button');
+
+		this.$textEl.appendChild(this.$button);
+		this.$element.appendChild(this.$textEl);
+		$todoUL.appendChild(this.$element);
+
+		
+		
+
 
 		// $todoUL.appendChild( ... )
+	}
+
+	updateView(){
+
 	}
 }
 
