@@ -27,8 +27,9 @@ class TodoItem {
 		this.$textEl = document.createElement('p');
 		this.$textEl.innerHTML = this.text;
 		this.$button = document.createElement('button');
+		this.$button.innerHTML = "Complete";
 
-		this.$textEl.appendChild(this.$button);
+		this.$element.appendChild(this.$button);
 		this.$element.appendChild(this.$textEl);
 		$todoUL.appendChild(this.$element);
 
@@ -40,6 +41,12 @@ class TodoItem {
 	}
 
 	updateView(){
+		if(this.$element.done === true){
+			this.$element.classList.add('done');
+		} else{
+			this.$element.classList.remove('done');
+		}
+		this.$textEl.innerHTML = this.text;
 
 	}
 }

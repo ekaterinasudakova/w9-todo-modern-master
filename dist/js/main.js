@@ -32,8 +32,9 @@ var TodoItem = function () {
 		this.$textEl = document.createElement('p');
 		this.$textEl.innerHTML = this.text;
 		this.$button = document.createElement('button');
+		this.$button.innerHTML = "Complete";
 
-		this.$textEl.appendChild(this.$button);
+		this.$element.appendChild(this.$button);
 		this.$element.appendChild(this.$textEl);
 		$todoUL.appendChild(this.$element);
 
@@ -42,7 +43,14 @@ var TodoItem = function () {
 
 	_createClass(TodoItem, [{
 		key: 'updateView',
-		value: function updateView() {}
+		value: function updateView() {
+			if (this.$element.done === true) {
+				this.$element.classList.add('done');
+			} else {
+				this.$element.classList.remove('done');
+			}
+			this.$textEl.innerHTML = this.text;
+		}
 	}]);
 
 	return TodoItem;
