@@ -31,13 +31,21 @@ class TodoItem {
 
 		this.$element.appendChild(this.$button);
 		this.$element.appendChild(this.$textEl);
-		$todoUL.appendChild(this.$element);
-
-		
-		
-
-
+		$todoUL.appendChild(this.$element);	
+		console.log(this.$button)
+		this.$button.addEventListener('click',this.toggleDone.bind(this));
 		// $todoUL.appendChild( ... )
+	}
+
+	toggleDone(){
+		console.log(this);
+		this.done = !this.done;
+		// if(this.done){
+		// 	this.done = true;
+		// } else{
+		// 	this.done = false;
+		// }
+		this.updateView();
 	}
 
 	updateView(){

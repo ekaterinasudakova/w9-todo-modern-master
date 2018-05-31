@@ -37,11 +37,24 @@ var TodoItem = function () {
 		this.$element.appendChild(this.$button);
 		this.$element.appendChild(this.$textEl);
 		$todoUL.appendChild(this.$element);
-
+		console.log(this.$button);
+		this.$button.addEventListener('click', this.toggleDone.bind(this));
 		// $todoUL.appendChild( ... )
 	}
 
 	_createClass(TodoItem, [{
+		key: 'toggleDone',
+		value: function toggleDone() {
+			console.log(this);
+			this.done = !this.done;
+			// if(this.done){
+			// 	this.done = true;
+			// } else{
+			// 	this.done = false;
+			// }
+			this.updateView();
+		}
+	}, {
 		key: 'updateView',
 		value: function updateView() {
 			if (this.$element.done === true) {
