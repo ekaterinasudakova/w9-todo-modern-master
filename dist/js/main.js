@@ -100,6 +100,7 @@ var TodoItem = function () {
 				this.$button.innerHTML = "Undo";
 			} else {
 				this.$element.classList.remove('done');
+				this.$button.innerHTML = "Complete";
 			}
 			this.$textEl.innerHTML = this.text;
 		}
