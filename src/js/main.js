@@ -5,12 +5,42 @@
  */
 class TodoList {
 	constructor() {
-		
+		this.items = [];
+		this.$field = document.querySelector('.listInput');
+		console.log(this.$field);
+
+		this.$field.addEventListener('keydown',() => {
+			if(event.which == 13 || event.keyCode == 13){
+				this.items.push(new TodoItem (this.$field.value));
+				this.$field.value = '';
+				this.updateView();
+			}
+		} )
+		window.addEventListener('itemChanged', this.updateView.bind(this));
+	}
+	updateView(){
+		var doneCounter = 0;
+		for (var i = 0; i < this.items.length; i++) {
+			console.log( this.items[i].$element )
+			$todoUL.appendChild(this.items[i].$element);
+			
+			console.log(this.items[i].done)
+			if(this.items[i].done === true){
+				console.log(doneCounter);
+				doneCounter++;
+			}
+		}
+		$total.innerHTML = this.items.length; 
+		console.log(`done counter: `, doneCounter);
+		$done.innerHTML = doneCounter; 
+
 	}
 }
 
 
-let $todoUL = document.querySelector(`.todo ul`)
+let $todoUL = document.querySelector(`.todo ul`);
+let $total = document.querySelector(`.total`);
+let $done = document.querySelector(`.done`);
 
 
 /**
@@ -31,7 +61,7 @@ class TodoItem {
 
 		this.$element.appendChild(this.$button);
 		this.$element.appendChild(this.$textEl);
-		$todoUL.appendChild(this.$element);	
+		// $todoUL.appendChild(this.$element);	
 		console.log(this.$button)
 		this.$button.addEventListener('click',this.toggleDone.bind(this));
 		// $todoUL.appendChild( ... )
@@ -40,11 +70,8 @@ class TodoItem {
 	toggleDone(){
 		this.done = !this.done;
 		console.log(this);
-		// if(this.done){
-		// 	this.done = true;
-		// } else{
-		// 	this.done = false;
-		// }
+		var event = new CustomEvent ('itemChanged');
+		window.dispatchEvent(event);
 		this.updateView();
 	}
 

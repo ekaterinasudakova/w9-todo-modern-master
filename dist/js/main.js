@@ -9,11 +9,52 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Keeps all the items in an array, and updates the DOM as needed
  * 
  */
-var TodoList = function TodoList() {
-	_classCallCheck(this, TodoList);
-};
+var TodoList = function () {
+	function TodoList() {
+		var _this = this;
+
+		_classCallCheck(this, TodoList);
+
+		this.items = [];
+		this.$field = document.querySelector('.listInput');
+		console.log(this.$field);
+
+		this.$field.addEventListener('keydown', function () {
+			if (event.which == 13 || event.keyCode == 13) {
+				_this.items.push(new TodoItem(_this.$field.value));
+				_this.$field.value = '';
+				_this.updateView();
+			}
+		});
+		window.addEventListener('itemChanged', this.updateView.bind(this));
+	}
+
+	_createClass(TodoList, [{
+		key: 'updateView',
+		value: function updateView() {
+			var doneCounter = 0;
+			for (var i = 0; i < this.items.length; i++) {
+				console.log(this.items[i].$element);
+				$todoUL.appendChild(this.items[i].$element);
+
+				console.log(this.items[i].done);
+				if (this.items[i].done === true) {
+					console.log(doneCounter);
+					doneCounter++;
+				}
+			}
+			$total.innerHTML = this.items.length;
+			console.log('done counter: ', doneCounter);
+			$done.innerHTML = doneCounter;
+		}
+	}]);
+
+	return TodoList;
+}();
 
 var $todoUL = document.querySelector('.todo ul');
+var $total = document.querySelector('.total');
+var $done = document.querySelector('.done');
 
 /**
  * One todo list item
@@ -36,7 +77,7 @@ var TodoItem = function () {
 
 		this.$element.appendChild(this.$button);
 		this.$element.appendChild(this.$textEl);
-		$todoUL.appendChild(this.$element);
+		// $todoUL.appendChild(this.$element);	
 		console.log(this.$button);
 		this.$button.addEventListener('click', this.toggleDone.bind(this));
 		// $todoUL.appendChild( ... )
@@ -47,11 +88,8 @@ var TodoItem = function () {
 		value: function toggleDone() {
 			this.done = !this.done;
 			console.log(this);
-			// if(this.done){
-			// 	this.done = true;
-			// } else{
-			// 	this.done = false;
-			// }
+			var event = new CustomEvent('itemChanged');
+			window.dispatchEvent(event);
 			this.updateView();
 		}
 	}, {
